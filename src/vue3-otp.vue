@@ -108,9 +108,9 @@ export default defineComponent({
     };
 
     const asignValue = () => {
-      otpArr.value = [];
       const arr = props.otp.replace(/[^0-9]/g, "").split("");
-      arr.forEach((l,i) => otpArr.value[i] = parseInt(l));
+      console.log(12, arr);
+      otpArr.value = arr.map(l => parseInt(l));
       if (opts.focusOnLoad) {
         nextTick(() => focusNeighbor(arr.length - 1, 2));
       }

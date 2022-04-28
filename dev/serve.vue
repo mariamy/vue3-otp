@@ -23,7 +23,7 @@ export default defineComponent({
       /** Send sms api */
 
       /** Clear inputs */
-      otp.value = "";
+      otp.value = " ";
 
       /** Reset timer */
       reset();

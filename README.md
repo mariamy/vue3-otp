@@ -1,5 +1,7 @@
 # vue3-otp
 
+![Gifphy](https://gifyu.com/image/SsSzh)
+
 ## Installation
 To install the latest version:
 ```
@@ -142,7 +144,7 @@ export default defineComponent({
       /** Send sms api */
 
       /** Clear inputs */
-      otp.value = "";
+      otp.value = " ";
 
       /** Reset timer */
       reset();
