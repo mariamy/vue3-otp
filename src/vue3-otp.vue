@@ -19,7 +19,8 @@ import { NeighborEnum } from '@/enums';
 export * from "@/timer";
 
 const defaultOptions = {
-  disableArrows: true,
+  focusOnLoad: true,
+  disableArrows: false,
   focusNextOnInput: true,
 }
 
@@ -66,7 +67,7 @@ export default defineComponent({
     const keypressHandler = (e: KeyboardEvent) => {
       const key = e.key;
       if (/[a-zA-Z]/g.test(key)) {
-          e.preventDefault();
+        e.preventDefault();
       }
     }
 
@@ -91,9 +92,9 @@ export default defineComponent({
       if (key === "Backspace" || code === "Backspace" || key === "Delete" || code === "Delete") {
         focusNeighbor(i);
       } else {
-        if (opts.disableArrows) {
-            if (key === "ArrowLeft") focusNeighbor(i);
-            else if (key === "ArrowRight") focusNeighbor(i, 2);
+        if (!opts.disableArrows) {
+          if (key === "ArrowLeft") focusNeighbor(i);
+          else if (key === "ArrowRight") focusNeighbor(i, 2);
         }
       }
       emitOtp();
@@ -109,7 +110,9 @@ export default defineComponent({
     const asignValue = () => {
       const arr = props.otp.replace(/[^0-9]/g, "").split("");
       otpArr.value = arr.map(l => parseInt(l));
-      nextTick(() => focusNeighbor(arr.length - 1, 2));
+      if (opts.focusOnLoad) {
+        nextTick(() => focusNeighbor(arr.length - 1, 2));
+      }
     };
 
     watch(

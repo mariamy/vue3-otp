@@ -14,7 +14,6 @@ import Vue3Otp from "@mariamy/vue3-otp";
 Example:
 ```javascript
 <template>
-    
     <vue3-otp
         :otp="otp"
         :inputsCount="9"
@@ -51,7 +50,13 @@ Example:
     <td>options</td>
     <td>object</td>
     <td>false</td>
-    <td>{ disableArrows: true, focusNextOnInput: true }</td>
+    <td>
+        {   
+            focusOnLoad: true,
+            disableArrows: true,
+            focusNextOnInput: true 
+        }
+    </td>
     <td></td>
   </tr>
 </table>
