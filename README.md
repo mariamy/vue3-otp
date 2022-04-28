@@ -136,14 +136,19 @@ export default defineComponent({
     Vue3Otp
   },
   setup() {
+    const otp = ref("");
     const { timer, reset } = useTimer();
     const resend = () => {
       /** Send sms api */
+
+      /** Clear inputs */
+      otp.value = "";
 
       /** Reset timer */
       reset();
     };
     return {
+      otp,
       resend,
       timer,
     }
@@ -153,7 +158,7 @@ export default defineComponent({
 
 <template>
   <div id="app">
-    <vue3-otp />
+    <vue3-otp :otp="otp" />
     <div class="timer">
       {{ timer }}
       <a href="#" @click.prevent="resend">Send again</a>
