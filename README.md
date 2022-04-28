@@ -1,6 +1,6 @@
 # vue3-otp
 
-![Gifphy](https://gifyu.com/image/SsSzh)
+![Gifphy](https://media.giphy.com/media/1BH2ujRXDqNjDR7jwB/giphy.gif)
 
 ## Installation
 To install the latest version:
