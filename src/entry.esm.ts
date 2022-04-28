@@ -1,7 +1,7 @@
 import { App, Plugin } from 'vue';
 
 // Import vue component
-import component from '@/vue3-otp.vue';
+import * as component from '@/vue3-otp.vue';
 
 // Define typescript interfaces for installable component
 type InstallableComponent = typeof component & { install: Exclude<Plugin['install'], undefined> };
