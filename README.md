@@ -77,6 +77,46 @@ Example:
 </table>
 
 ## Timer
+Timer events:
+<table>
+  <tr>
+    <th>Name<br></th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>start</td>
+    <td>Start timer</td>
+  </tr>
+  <tr>
+    <td>stop</td>
+    <td>Stop timer</td>
+  </tr>
+  <tr>
+    <td>resume</td>
+    <td>Resume stopped timer</td>
+  </tr>
+  <tr>
+    <td>reset</td>
+    <td>Reset timer</td>
+  </tr>
+</table>
+
+Timer data:
+<table>
+  <tr>
+    <th>Name<br></th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td>duration</td>
+    <td>number</td>
+  </tr>
+  <tr>
+    <td>timer</td>
+    <td>string</td>
+  </tr>
+</table>
+
 Import timer hook.
 Example:
 
