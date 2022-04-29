@@ -1,27 +1,28 @@
 # vue3-otp
 
+Library to use OTP
+
 ![Gifphy](https://media.giphy.com/media/1BH2ujRXDqNjDR7jwB/giphy.gif)
 
 ## Installation
 To install the latest version:
 ```
-npm install --save @mariamy/vue3-otp
+npm install --save vue3-otp
 ```
 
 Import to your components
 ```javascript
-import Vue3Otp from "@mariamy/vue3-otp";
+import { Vue3Otp } from "vue3-otp";
 ```
 
 Example:
 ```javascript
 <template>
-    <vue3-otp
-        :otp="otp"
-        :inputsCount="9"
-        @change="handleChange"
-        @complete="handleComplete"
-    />
+  <vue3-otp
+    :otp="otp"
+    :inputsCount="9"
+    @complete="handleComplete"
+  />
 </template>
 ```
 
@@ -70,10 +71,6 @@ Example:
     <th>Description</th>
   </tr>
   <tr>
-     <td>change</td>
-     <td>Handle otp inputs change</td>
-    </tr>
-  <tr>
     <td>complete</td>
     <td>Handle complete event</td>
   </tr>
@@ -84,11 +81,11 @@ Import timer hook.
 Example:
 
 ```javascript
-import Vue3Otp, { useTimer } from '@/vue3-otp.vue';
+import { Vue3Otp, useTimer } from 'vue3-otp';
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import Vue3Otp, { useTimer } from '@/vue3-otp.vue';
+import { Vue3Otp, useTimer } from 'vue3-otp';
 
 export default defineComponent({
   components: {
@@ -96,34 +93,30 @@ export default defineComponent({
   },
   setup() {
     const otp = ref("5");
-    const handleChange = (value: string) =>
-      console.log('change: ', value);
     const handleComplete = (value: string) =>
       console.log('complete: ', value);
       
     return {
-        ...useTimer(),
-        otp,
-        handleChange,
-        handleComplete,
+      ...useTimer(),
+      otp,
+      handleComplete,
     }
   }
 });
 </script>
 
 <template>
-    <vue3-otp
-      :otp="otp"
-      :inputsCount="6"
-      @change="handleChange"
-      @complete="handleComplete"
-    />
-    <div>
-      {{ timer }}
-      <button @click="reset">Reset</button>
-      <button @click="stop">Stop</button>
-      <button @click="resume">Resume</button>
-    </div>
+  <vue3-otp
+    :otp="otp"
+    :inputsCount="6"
+    @complete="handleComplete"
+  />
+  <div>
+    {{ timer }}
+    <button @click="reset">Reset</button>
+    <button @click="stop">Stop</button>
+    <button @click="resume">Resume</button>
+  </div>
 </template>
 ```
 
@@ -131,7 +124,7 @@ Resend Sms
 ```javascript
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Vue3Otp, { useTimer } from '@/vue3-otp.vue';
+import { Vue3Otp, useTimer } from 'vue3-otp';
 
 export default defineComponent({
   components: {

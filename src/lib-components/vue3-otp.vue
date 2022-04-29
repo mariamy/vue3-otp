@@ -8,6 +8,7 @@
       @keypress="keypressHandler"
       @input="inputHandler($event, i)"
       @keyup="keyupHander($event, i)"
+      @paste="pasteHandler($event, i)"
     />
   </div>
 </template>
@@ -27,22 +28,22 @@ const defaultOptions = {
 export default defineComponent({
   props: {
     inputsCount: {
-        type: Number,
-        default: 4
+      type: Number,
+      default: 4
     },
-    otp: {
-        type: String,
-        default: ""
+    modelValue: {
+      type: String,
+      default: ""
     },
     options: {
-        type: Object as () => DefaultOptions,
-        default: defaultOptions
+      type: Object as () => DefaultOptions,
+      default: defaultOptions
     }
   },
-  emits: ["change", "complete"],
+  emits: ["update:modelValue", "complete"],
   setup(props, { emit }) {
     const inputsContainerRef = ref<HTMLElement>();
-    const otpArr = ref<number[] | string[]>([]);
+    const otpArr = ref<string[]>([]);
     const opts: DefaultOptions = reactive({
       ...defaultOptions,
       ...props.options
@@ -51,7 +52,12 @@ export default defineComponent({
     const inputs = computed((): any =>
       inputsContainerRef.value?.querySelectorAll("input"));
 
-    const emitOtp = () => emit('change', otpArr.value.join(""));
+    const updateOtp = (arr: string[]) => {
+      emitOtp(arr);
+      handeComplete(arr);
+    };
+
+    const emitOtp = (arr: string[]) => emit('update:modelValue', arr.join(""));
 
     const focusNeighbor = (i: number, type: NeighborEnum = 1): void => {
       if (!inputs.value) return;
@@ -62,28 +68,24 @@ export default defineComponent({
         const next = inputs.value[i + 1];
         if (next) next.focus();
       }
-    }
+    };
 
     const keypressHandler = (e: KeyboardEvent) => {
       const key = e.key;
-      if (/[a-zA-Z]/g.test(key)) {
+      if (/[^0-9]/g.test(key)) {
         e.preventDefault();
       }
-    }
+    };
 
     const inputHandler = (e: InputEvent, i: number): void | Boolean => {
-      const value = e.data;
-      if (!value) return;
-
-      const data = parseInt(value);
-      if(isNaN(data)) return false;
+      const data = e.data;
+      if (!data || isNaN(parseInt(data))) return;
               
-      otpArr.value[i] = data as number;
+      otpArr.value[i] = data;
       if (inputs.value && opts.focusNextOnInput) {
         focusNeighbor(i, 2);
       }
-      emitOtp();
-      handeComplete();
+      updateOtp(otpArr.value);
     };
 
     const keyupHander = (e: KeyboardEvent, i: number) => {
@@ -97,32 +99,47 @@ export default defineComponent({
           else if (key === "ArrowRight") focusNeighbor(i, 2);
         }
       }
-      emitOtp();
+      emitOtp(otpArr.value);
     };
 
-    const handeComplete = () => {
-      if (otpArr.value.length === props.inputsCount) {
+    const handeComplete = (arr: string[]) => {
+      if (arr.length === props.inputsCount) {
           const index = otpArr.value.findIndex(l => isNaN(parseInt(l as string)));
           if (index === -1) emit('complete', otpArr.value.join(""));
       }
     };
 
     const asignValue = () => {
-      const arr = props.otp.replace(/[^0-9]/g, "").split("");
-      otpArr.value = arr.map(l => parseInt(l));
+      const arr = props.modelValue.replace(/[^0-9]/g, "").split("");
+      otpArr.value = arr.map(l => l);
+      emitOtp(otpArr.value);
       if (opts.focusOnLoad) {
         nextTick(() => focusNeighbor(arr.length - 1, 2));
       }
     };
 
-    watch(
-      () => props.otp,
-      () => asignValue()
-    );
+    const pasteHandler = (e: ClipboardEvent, i: number) => {
+      e.preventDefault();
+      let data = e.clipboardData?.getData('text');
+      if (data) {
+        const dataArr = data.replace(/[^0-9]/g, "").split("");
+        dataArr.forEach(l => {
+          if (i < props.inputsCount) {
+            otpArr.value[i] = l;
+            i++;
+          }
+        });
+        updateOtp(otpArr.value);
+      }
+    };
 
     watch(
-      otpArr.value,
-      () => emitOtp()
+      () => props.modelValue,
+      (newVal) => {
+        if (otpArr.value.join("") !== newVal) {
+          asignValue();
+        }
+      }
     );
 
     onMounted(() => asignValue());
@@ -132,6 +149,7 @@ export default defineComponent({
       keypressHandler,
       inputHandler,
       keyupHander,
+      pasteHandler,
       otpArr,
     };
   }

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue3-otp :otp="otp" />
+    <vue3-otp v-model="otp" :inputsCount="6" @complete="complete" />
     <div class="timer">
       {{ timer }}
       <a href="#" @click.prevent="resend">Send again</a>
@@ -10,20 +10,23 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import Vue3Otp, { useTimer } from '@/vue3-otp.vue';
+import Vue3Otp, { useTimer } from '@/lib-components/vue3-otp.vue';
 
 export default defineComponent({
   components: {
     Vue3Otp
   },
   setup() {
-    const otp = ref("");
+    const otp = ref("98");
     const { timer, reset } = useTimer();
+    const complete = (value: string) => {
+      console.log("otp completed: " + value);
+    }
     const resend = () => {
       /** Send sms api */
 
       /** Clear inputs */
-      otp.value = " ";
+      otp.value = "";
 
       /** Reset timer */
       reset();
@@ -32,6 +35,7 @@ export default defineComponent({
       otp,
       resend,
       timer,
+      complete,
     }
   }
 });

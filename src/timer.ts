@@ -44,6 +44,7 @@ export const useTimer = (minutes = 3) => {
     onMounted(() => start());
     
     return {
+        duration,
         timer,
         start,
         stop,
