@@ -2,7 +2,7 @@
 
 Library to use OTP
 
-![Gifphy](https://giphy.com/embed/gieotB7Q4ofW3Jw8XO)
+![Gifphy](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjRzZnMxNjhmZ2lodndqcWF1em40cHltZmR6Z2lwdzc3YmpuajJnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gieotB7Q4ofW3Jw8XO/giphy.gif)
 
 ## Installation
 To install the latest version:
