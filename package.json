@@ -1,0 +1,26 @@
+{
+  "name": "vue3-otp",
+  "version": "2.1.0",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/vue3-otp.umd.cjs",
+  "module": "./dist/vue3-otp.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-otp.js",
+      "require": "./dist/vue3-otp.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0"
+  }
+}
