@@ -1,6 +1,6 @@
 {
   "name": "vue3-otp",
-  "version": "2.1.0",
+  "version": "2.0.0",
   "type": "module",
   "files": ["dist"],
   "main": "./dist/vue3-otp.umd.cjs",
